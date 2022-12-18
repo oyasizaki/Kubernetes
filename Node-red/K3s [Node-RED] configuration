@@ -139,7 +139,7 @@ spec:
       targetPort: node-red-ui
 
 
-
+                                                               // Use either Deployment or DaemonSet //
 
 
                                                                       //To deploy the file
