@@ -1,0 +1,10 @@
+//To install K3s Run the command given below:
+
+curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
+
+
+// To check the running pods run:
+
+kubectl get pods -A
+
+
