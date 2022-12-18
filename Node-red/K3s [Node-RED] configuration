@@ -149,5 +149,5 @@ spec:
 •	Run the command [kubectl apply -f node-red.yaml]
 
                                                        Now check the container using  [kubectl get pod]
-
+// Remove [ ] from the command lines before running it
 
