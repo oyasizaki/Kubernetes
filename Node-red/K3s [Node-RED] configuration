@@ -1,0 +1,153 @@
+                                                  //Node red K3s deploying Configuration is given below:
+
+                                                                        //Deployment
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-red
+  labels:
+    app: node-red
+spec:
+  selector:
+    matchLabels:
+      app: node-red
+  template:
+    metadata:
+      labels:
+        app: node-red
+    spec:
+      containers:
+      - name: node-red
+        image: nodered/node-red:latest
+        ports:
+        - containerPort: 1880
+          name: node-red-ui
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - name: node-red-data
+          subPathExpr: $(NODE_NAME)
+          mountPath: /data
+        env:
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: TZ
+          value: America/Los_Angeles
+      volumes:
+      - name: node-red-data
+        persistentVolumeClaim:
+          claimName: node-red-claim
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: node-red-claim
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rode-red
+spec:
+  selector:
+    app: node-red
+  type: LoadBalancer
+  loadBalancerIP: 192.168.0.103
+  ports:
+    - name: node-red-ui
+      port: 1880
+      protocol: TCP
+      targetPort: node-red-ui
+
+
+
+
+                                                               //DaemonSet
+
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: node-red
+  labels:
+    app: node-red
+spec:
+  selector:
+    matchLabels:
+      app: node-red
+  template:
+    metadata:
+      labels:
+        app: node-red
+    spec:
+      containers:
+      - name: node-red
+        image: nodered/node-red:latest
+        ports:
+        - containerPort: 1880
+          name: node-red-ui
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - name: node-red-data
+          subPathExpr: $(NODE_NAME)
+          mountPath: /data
+        env:
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: TZ
+          value: America/Los_Angeles
+      volumes:
+      - name: node-red-data
+        persistentVolumeClaim:
+          claimName: node-red-claim
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: node-red-claim
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rode-red
+spec:
+  selector:
+    app: node-red
+  type: LoadBalancer
+  loadBalancerIP: 192.168.0.103
+  ports:
+    - name: node-red-ui
+      port: 1880
+      protocol: TCP
+      targetPort: node-red-ui
+
+
+
+
+
+                                                                      //To deploy the file
+
+
+•	Save the file as node-red.yaml
+•	Run the command [kubectl apply -f node-red.yaml]
+
+                                                       Now check the container using  [kubectl get pod]
+
+
