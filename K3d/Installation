@@ -11,5 +11,5 @@ choco install k3d
 
 
 # make sure to run the command as administrator.
-
+# make sure to keep the docker running
 
