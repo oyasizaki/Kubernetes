@@ -1,0 +1,15 @@
+                                                                 # For windows version
+
+# First make sure to install chocolatey
+
+Go to --------------- https://docs.chocolatey.org/en-us/choco/setup ---------------  this link
+
+
+# then install k3d with chocolatey
+
+choco install k3d
+
+
+# make sure to run the command as administrator.
+
+
