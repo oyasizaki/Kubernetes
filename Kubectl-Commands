@@ -1,0 +1,19 @@
+Minikube ---->> kubectl
+Microk8s ---->> microk8s kubectl
+k3d      ---->> kubectl
+k3s      ---->> kubectl
+
+
+
+
+############################################# Context ########################################
+
+// Create context 
+
+
+// Delete context
+kubectl config create-context <context name>
+
+// Use context
+kubectl config use-context <context name>
+
