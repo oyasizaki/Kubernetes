@@ -1,7 +1,56 @@
+#################################### LEGENDS #######################################################
+NC -->> not checked
+
+
+
+
+
+######################################################################################################################
+
 Minikube ---->> kubectl
 Microk8s ---->> microk8s kubectl
 k3d      ---->> kubectl
 k3s      ---->> kubectl
+
+
+
+###################################### Minikube #############################################
+
+// Link to the offical webpage -------------->>  https://minikube.sigs.k8s.io/docs/start/
+
+// To start Minikube
+minikube start
+
+
+// Delete all of the minikube clusters
+minikube delete --all
+
+
+
+
+
+
+
+##################################### Microk8s ###############################################
+
+
+
+
+
+
+
+#################################### K3d ######################################################
+
+
+
+
+
+################################### k3s #######################################################
+
+
+
+
+
 
 
 
@@ -12,8 +61,57 @@ k3s      ---->> kubectl
 
 
 // Delete context
-kubectl config create-context <context name>
+kubectl config create-context <context_name>
 
 // Use context
-kubectl config use-context <context name>
+kubectl config use-context <context_name>
+
+
+
+
+
+
+########################################## Node ##############################################
+
+
+
+
+
+######################################## Namespace ###########################################
+
+
+
+########################################## Pod ###############################################
+
+
+
+
+######################################### Storage Class #######################################
+
+// To show the availabe pods in default namespace
+kubectl get sc 
+
+// To show all storage classes
+kubectl get sc -A
+
+// To view a specific namespace storage classes
+----[NC]----- kubectl get -n <namespace> sc
+
+
+// To describe the details of the pod
+kubectl describe storageclass <storageclass_name>
+
+//
+
+
+
+
+
+
+######################################### PVC/PV ##############################################
+
+
+
+
+
 
