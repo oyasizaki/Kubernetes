@@ -2,7 +2,7 @@
 minikube addons list
 
 // If the dashboard is disabled then 
-minikube addons enable metallb
+minikube addons enable dashboard
 
 // Then check the dashboard pods are running or not
 kubectl get pods -A
