@@ -1,0 +1,15 @@
+//First check if the dashboard on minikube is enabled or not
+minikube addons list
+
+// If the dashboard is disabled then 
+minikube addons enable metallb
+
+// Then check the dashboard pods are running or not
+kubectl get pods -A
+
+
+// When the pods are ready then 
+minikube dashboard
+
+
+// This will open the dashboard UI into your default web browser
