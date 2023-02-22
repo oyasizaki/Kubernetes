@@ -1,0 +1,14 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  creationTimestamp: null
+  name: erpnext-offline-default
+spec:
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              io.kompose.network/erpnext-offline-default: "true"
+  podSelector:
+    matchLabels:
+      io.kompose.network/erpnext-offline-default: "true"

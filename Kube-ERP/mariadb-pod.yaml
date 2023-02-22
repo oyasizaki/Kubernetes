@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert
+    kompose.version: 1.28.0 (c4137012e)
+  creationTimestamp: null
+  labels:
+    io.kompose.network/erpnext-offline-default: "true"
+    io.kompose.service: mariadb
+  name: mariadb
+spec:
+  containers:
+    - args:
+        - mysqld
+        - --character-set-server=utf8mb4
+        - --collation-server=utf8mb4_unicode_ci
+        - --skip-character-set-client-handshake
+      env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: admin
+      image: mariadb:10.3
+      name: mariadb
+      ports:
+        - containerPort: 3306
+      resources: {}
+      volumeMounts:
+        - mountPath: /etc/mysql/conf.d/frappe.cnf
+          name: mariadb-claim0
+        - mountPath: /var/lib/mysql
+          name: mariadb-vol
+  restartPolicy: OnFailure
+  volumes:
+    - name: mariadb-claim0
+      persistentVolumeClaim:
+        claimName: mariadb-claim0
+    - name: mariadb-vol
+      persistentVolumeClaim:
+        claimName: mariadb-vol
+status: {}

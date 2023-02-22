@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert
+    kompose.version: 1.28.0 (c4137012e)
+    traefik.enable: "true"
+  creationTimestamp: null
+  labels:
+    io.kompose.service: traefik
+  name: traefik
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: traefik
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert
+        kompose.version: 1.28.0 (c4137012e)
+        traefik.enable: "true"
+      creationTimestamp: null
+      labels:
+        io.kompose.network/erpnext-offline-default: "true"
+        io.kompose.service: traefik
+    spec:
+      containers:
+        - args:
+            - --log.level=DEBUG
+            - --providers.docker=true
+            - --providers.docker.exposedbydefault=false
+            - --entrypoints.web.address=:80
+            - --entrypoints.websecure.address=:443
+            - --certificatesresolvers.excelresolver.acme.httpchallenge=true
+            - --certificatesresolvers.excelresolver.acme.httpchallenge.entrypoint=web
+            - --certificatesresolvers.excelresolver.acme.email=$(){LETSENCRYPT_EMAIL}
+            - --certificatesresolvers.excelresolver.acme.storage=/letsencrypt/acme.json
+          image: traefik:v2.2
+          name: traefik
+          ports:
+            - containerPort: 80
+            - containerPort: 443
+          resources: {}
+          volumeMounts:
+            - mountPath: /letsencrypt
+              name: cert-vol
+            - mountPath: /var/run/docker.sock
+              name: traefik-claim1
+              readOnly: true
+      restartPolicy: Always
+      volumes:
+        - name: cert-vol
+          persistentVolumeClaim:
+            claimName: cert-vol
+        - name: traefik-claim1
+          persistentVolumeClaim:
+            claimName: traefik-claim1
+            readOnly: true
+status: {}

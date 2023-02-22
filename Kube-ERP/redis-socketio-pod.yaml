@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert
+    kompose.version: 1.28.0 (c4137012e)
+  creationTimestamp: null
+  labels:
+    io.kompose.network/erpnext-offline-default: "true"
+    io.kompose.service: redis-socketio
+  name: redis-socketio
+spec:
+  containers:
+    - image: redis:latest
+      name: redis-socketio
+      resources: {}
+      volumeMounts:
+        - mountPath: /data
+          name: redis-socketio-vol
+  restartPolicy: OnFailure
+  volumes:
+    - name: redis-socketio-vol
+      persistentVolumeClaim:
+        claimName: redis-socketio-vol
+status: {}
