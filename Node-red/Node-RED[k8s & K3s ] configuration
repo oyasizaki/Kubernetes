@@ -148,6 +148,11 @@ spec:
 •	Save the file as node-red.yaml
 •	Run the command [kubectl apply -f node-red.yaml]
 
-                                                       Now check the container using  [kubectl get pod]
+                                                       //Now check the container using  [kubectl get pod]
 // Remove [ ] from the command lines before running it
+                                         
+                                         
+                                                      // To expose the service you have to enter the following command
+kubectl port-forward service/rode-red 1880:1880
 
+                         
