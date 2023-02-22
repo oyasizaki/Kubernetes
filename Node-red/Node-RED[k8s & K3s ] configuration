@@ -56,7 +56,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: rode-red
+  name: node-red
 spec:
   selector:
     app: node-red
@@ -153,6 +153,6 @@ spec:
                                          
                                          
                                                       // To expose the service you have to enter the following command
-kubectl port-forward service/rode-red 1880:1880
+kubectl port-forward service/node-red 1880:1880
 
                          
